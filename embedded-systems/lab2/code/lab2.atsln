@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "lab2", "lab2\lab2.cproj", "{BA3FBB82-A179-4291-BBBC-DC3D3A8E8D46}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TC_TIMEOUT_EXAMPLE21", "TC_TIMEOUT_EXAMPLE21\TC_TIMEOUT_EXAMPLE21.cproj", "{0B980B88-D127-41FA-B97E-0ABC9926A713}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA3FBB82-A179-4291-BBBC-DC3D3A8E8D46}.Debug|AVR.ActiveCfg = Debug|AVR
+		{BA3FBB82-A179-4291-BBBC-DC3D3A8E8D46}.Debug|AVR.Build.0 = Debug|AVR
+		{BA3FBB82-A179-4291-BBBC-DC3D3A8E8D46}.Release|AVR.ActiveCfg = Release|AVR
+		{BA3FBB82-A179-4291-BBBC-DC3D3A8E8D46}.Release|AVR.Build.0 = Release|AVR
+		{0B980B88-D127-41FA-B97E-0ABC9926A713}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0B980B88-D127-41FA-B97E-0ABC9926A713}.Debug|AVR.Build.0 = Debug|AVR
+		{0B980B88-D127-41FA-B97E-0ABC9926A713}.Release|AVR.ActiveCfg = Release|AVR
+		{0B980B88-D127-41FA-B97E-0ABC9926A713}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
