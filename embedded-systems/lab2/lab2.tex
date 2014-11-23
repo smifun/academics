@@ -110,7 +110,7 @@ W bloku obsługi przerwania pomniejszamy licznik przerwań. W przypadku gdy limi
 \subsection{Obsługa wyświetlacza}
 Do sterowania wyświetlaczem posłużymy się portem A. W tym celu ustawiamy wartość rejestru DDRA w stan wysoki(0xFF). W celu konwersji wartości cyfr do wartości sterującej zapalonymi segmentami wyświetlacza definiujemy tablice \textit{digitValues} jej wartości ustawiamy w funkcji \textit{init}. Przy takim założeniu piny segmentów powinny być podłączone w kolejności \textit{gfedcba} począwszy od pierwszego pinu Portu A. Do ostatniego pinu portu A podłączamy pin wyboru cyfry wyświetlacza oraz ustawiamy wyjście w stan wysoki (0x80).\\
 
-\lstinputlisting[language=C, caption=Program zadanie 2.2]{listing1.c}
+\lstinputlisting[language=C, caption=Program zadanie 2.2]{code/lab2/lab2.c}
 
 \begin{thebibliography}{99}
 \bibitem{skr} Instrukcja do ćwiczeń laboratoryjnych
