@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+%\usepackage{fontspec}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+%\setmonofont{Consolas}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,
+	basicstyle=\ttfamily\footnotesize,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{Systemy Wbudowane}
+\fancyhead[C]{System przerwań}
+\fancyhead[R]{Labolatorium 2}
+
+\author{Kamil Wójcik}
+\title{Sprawozdanie}
+\begin{document}
+\begin{titlepage}
+ 
+\begin{center}
+
+{\Large {Wydział Fizyki, Matematyki i Informatyki\\Politechnika Krakowska
+} }
+\\[1cm] 
+\includegraphics[scale=0.4]{pk.png}
+\\[1cm]
+
+{\Huge \textsc{Instytut Teleinformatyki}}\\[0.7cm]
+{\Huge Systemy Wbudowane}\\[2cm]
+{\Large Sprawozdanie z Laboratorium 2}\\[2cm]
+
+\begin{minipage}[l]{0.4\textwidth}
+    \begin{flushleft}
+        \textbf{\textsf{Prowadzący:}}\\
+        \large dr hab. Zbisław Tabor\\
+        \large prof. dr hab. inż. Piotr Malecki\\ 
+        \end{flushleft}
+\end{minipage}
+\begin{minipage}[l]{0.4\textwidth}
+    \begin{flushright}
+        \textbf{\textsf{Autor:}}\\
+        \linespread{1}
+        \large Kamil Wójcik
+    \end{flushright}
+\end{minipage}
+ 
+\end{center}
+ 
+\end{titlepage}
+
+
+
+\section{Wprowadzenie}
+Celem laboratorium było zapoznanie się z systemem przerwań w układach mikrokontrolerów, na przykładzie zestawu ZL15AVR wyposażonego w AVR ATmega32.
+
+\section{Zadanie}
+Celem wybranego zadania(2.2) było napisanie programu odliczającego sekundy na wyświetlaczu 7-segmentowym wykorzystując przerwania od Timera0.
+
+\subsection{Obsługa przerwań}
+Zgodnie z wymaganiem do odliczania czasu użyjemy przerwań od Timera0. Zastosowany zestaw uruchomieniowy posiada wbudowany oscylator o $f=1MHz$. Zakładając najwyższą wartość preskalera $T = 1024$ oraz fakt że użyjemy przerwań od przepełnienia rejestru możemy określić że potrzebna liczna przerwań do odliczenia $1s$ będzie wynosić $\approx$ 3.81. Aby rozwiązać ten problem wprowadzimy dodatkową zmienną która będzie określała liczbę przerwań.
+
+\[C = \frac{\frac{f_{clk}}{f_{czas}}}{R T}\]
+
+gdzie:\\
+$C$ - licznik przerwań\\
+$f_{clk}$ - częstotliwość pracy oscylatora (1MHz)\\
+$f_{czas}$ - częstotliwość pożądana (1Hz)\\
+$R$ - ilość cykli timera do przerwania (255). W naszym przypadku przerwania ustawione są od przepełnienia a Timer0 jest timerem 8-bitowym\\
+$T$ - wartość preskalera(64)\\
+\\[0.5cm]
+Podstawiając do wzoru otrzymujemy: $C = 61,2745$.
+Łatwo można obliczyć że czas odliczany tym sposobem będzie wynosił $\approx0.9955s$. Na takiej precyzji poprzestaniemy. Wymienię tylko sposoby jakimi można osiągnąć większą precyzję.
+\begin{itemize}
+\item Wprowadzenie kolejnej zmiennej pozwalającej dokładniej zliczać przerwania przy mniejszej wartości preskalera
+\item Zastosowanie zegara czasu rzeczywistego
+\end{itemize}
+
+W bloku obsługi przerwania pomniejszamy licznik przerwań. W przypadku gdy limit został osiągnięty wyświetlana cyfra zostaje zwiększona a w razie przepełnienia wyzerowana. Po zwiększeniu cyfry licznik przerwań jest resetowany. 
+
+\subsection{Obsługa wyświetlacza}
+Do sterowania wyświetlaczem posłużymy się portem A. W tym celu ustawiamy wartość rejestru DDRA w stan wysoki(0xFF). W celu konwersji wartości cyfr do wartości sterującej zapalonymi segmentami wyświetlacza definiujemy tablice \textit{digitValues} jej wartości ustawiamy w funkcji \textit{init}. Przy takim założeniu piny segmentów powinny być podłączone w kolejności \textit{gfedcba} począwszy od pierwszego pinu Portu A. Do ostatniego pinu portu A podłączamy pin wyboru cyfry wyświetlacza oraz ustawiamy wyjście w stan wysoki (0x80).\\
+
+\lstinputlisting[language=C, caption=Program zadanie 2.2]{code/lab2/lab2.c}
+
+\begin{thebibliography}{99}
+\bibitem{skr} Instrukcja do ćwiczeń laboratoryjnych
+%url = {http://iti.pk.edu.pl/attachments/article/55/Lab_2_instrukcja.pdf}
+\bibitem{} Nota katalogowa mikrokontrolera
+\end{thebibliography}
+\end{document}
